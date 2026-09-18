@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="container">
+      <p class="eyebrow">Fruit Vote</p>
+      <h1>Pick your favorite flavor</h1>
+      <p class="intro">Click a fruit to add one vote. Vote as many times as you like.</p>
+
+      <section class="fruit-grid" aria-label="Fruit voting options">
+        <button class="fruit-card strawberry" data-fruit="strawberry" type="button">
+          <span class="fruit-emoji" aria-hidden="true">🍓</span>
+          <span class="fruit-name">Strawberry</span>
+          <span class="vote-count"><span id="strawberry-count"><%= counts.strawberry %></span> votes</span>
+        </button>
+        <button class="fruit-card orange" data-fruit="orange" type="button">
+          <span class="fruit-emoji" aria-hidden="true">🍊</span>
+          <span class="fruit-name">Orange</span>
+          <span class="vote-count"><span id="orange-count"><%= counts.orange %></span> votes</span>
+        </button>
+        <button class="fruit-card lemon" data-fruit="lemon" type="button">
+          <span class="fruit-emoji" aria-hidden="true">🍋</span>
+          <span class="fruit-name">Lemon</span>
+          <span class="vote-count"><span id="lemon-count"><%= counts.lemon %></span> votes</span>
+        </button>
+      </section>
+
+      <p class="status" aria-live="polite"></p>
+    </main>
+    <script>
+      const buttons = document.querySelectorAll('.fruit-card');
+      const status = document.querySelector('.status');
+
+      buttons.forEach((button) => {
+        button.addEventListener('click', async (event) => {
+          event.preventDefault();
+          const fruit = button.dataset.fruit;
+          button.classList.remove('vote-burst');
+          void button.offsetWidth;
+          button.classList.add('vote-burst');
+          button.disabled = true;
+          status.textContent = 'Saving your vote...';
+
+          try {
+            const response = await fetch(`/vote/${fruit}`, { method: 'POST' });
+            const result = await response.json();
+
+            if (!response.ok) {
+              throw new Error(result.error || 'Unable to save vote.');
+            }
+
+            document.querySelector(`#${fruit}-count`).textContent = result.count;
+            status.textContent = `${fruit[0].toUpperCase()}${fruit.slice(1)} got a vote!`;
+          } catch (error) {
+            status.textContent = error.message;
+          } finally {
+            button.disabled = false;
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

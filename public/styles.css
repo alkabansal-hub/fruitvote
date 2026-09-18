@@ -1,0 +1,179 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  color: #263238;
+  background: #fff8ee;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #fff8ee 0%, #fff1d6 100%);
+}
+
+.container {
+  width: min(100%, 980px);
+  padding: clamp(2rem, 6vw, 4.5rem);
+  text-align: center;
+}
+
+.eyebrow {
+  margin: 0 0 0.75rem;
+  color: #d65a31;
+  font: 700 0.8rem/1.2 Georgia, 'Times New Roman', serif;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: #263238;
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  line-height: 0.98;
+}
+
+.intro {
+  max-width: 34rem;
+  margin: 1.25rem auto 2.75rem;
+  color: #687277;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.fruit-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.fruit-card {
+  min-height: 280px;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  border: 0;
+  border-radius: 8px;
+  color: #263238;
+  cursor: pointer;
+  font: inherit;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.fruit-card.vote-burst {
+  animation: vote-burst 520ms ease-out;
+}
+
+.fruit-card.vote-burst .fruit-emoji {
+  animation: fruit-light-up 520ms ease-out;
+}
+
+.fruit-card:hover:not(:disabled) {
+  transform: translateY(-6px) rotate(-1deg);
+  box-shadow: 0 16px 24px rgb(38 50 56 / 15%);
+}
+
+.fruit-card:focus-visible {
+  outline: 4px solid #263238;
+  outline-offset: 4px;
+}
+
+.fruit-card:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.strawberry {
+  background: #ffc6c2;
+}
+
+.orange {
+  background: #ffd29e;
+}
+
+.lemon {
+  background: #f4e99b;
+}
+
+.fruit-emoji {
+  font-size: 6.5rem;
+  line-height: 1;
+}
+
+.fruit-name {
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.vote-count {
+  color: #5d686d;
+  font-size: 0.95rem;
+}
+
+.status {
+  margin: 0;
+  min-height: 1.5rem;
+  padding-top: 1.5rem;
+  color: #d65a31;
+  font-weight: 700;
+}
+
+@keyframes vote-burst {
+  0% {
+    box-shadow: 0 0 0 0 rgb(255 255 255 / 0%);
+    transform: scale(1);
+  }
+  35% {
+    box-shadow: 0 0 0 14px rgb(255 255 255 / 65%), 0 16px 32px rgb(214 90 49 / 28%);
+    transform: scale(1.04);
+  }
+  100% {
+    box-shadow: 0 0 0 28px rgb(255 255 255 / 0%);
+    transform: scale(1);
+  }
+}
+
+@keyframes fruit-light-up {
+  0%, 100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
+  35% {
+    filter: brightness(1.35) saturate(1.2);
+    transform: scale(1.18) rotate(-7deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fruit-card,
+  .fruit-card:hover:not(:disabled) {
+    transition: none;
+    transform: none;
+  }
+
+  .fruit-card.vote-burst,
+  .fruit-card.vote-burst .fruit-emoji {
+    animation: none;
+  }
+}
+
+@media (max-width: 680px) {
+  .fruit-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fruit-card {
+    min-height: 190px;
+  }
+
+  .fruit-emoji {
+    font-size: 5rem;
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "fruitvote",
+  "version": "1.0.0",
+  "description": "A simple Express and EJS web application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@upstash/redis": "^1.38.4",
+    "dotenv": "^17.4.2",
+    "ejs": "^3.1.10",
+    "express": "^5.1.0"
+  }
+}
