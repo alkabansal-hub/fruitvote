@@ -4,7 +4,7 @@
 
 :root {
   color: #263238;
-  background: #fff8ee;
+  background: #8ed8ff;
   font-family: Georgia, 'Times New Roman', serif;
 }
 
@@ -14,7 +14,7 @@ body {
   display: grid;
   place-items: center;
   padding: 2rem 1rem;
-  background: linear-gradient(135deg, #fff8ee 0%, #fff1d6 100%);
+  background: linear-gradient(135deg, #8ed8ff 0%, #5fa8ff 48%, #7674e8 100%);
 }
 
 .container {
